@@ -13,6 +13,10 @@ const sideBarTemplate = document.querySelector('#sidebar-template').innerHTML
 
 const { username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const autoScroll = () => {
   // new message
   const $newMessage = $messages.lastElementChild
@@ -50,7 +54,7 @@ socket.on("message", (message) => {
 socket.on("loacationMessage", (location) => {
   console.log(location);
   const html = Mustache.render(locationTemplate, {
-    username: location.username,
+    username: capitalizeFirstLetter(location.username),
     location: location.url,
     createdAt: moment(location.createdAt).format("MMM D, h:mm A"),
   });
