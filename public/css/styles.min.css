@@ -144,19 +144,20 @@ button:disabled {
   padding: 12px 24px 0;
   position: absolute;
   bottom: 0;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   text-decoration: none;
   color: white;
   font-size: 18.72px;
+  margin-left: 9px;
 }
 .gitlink {
   display: flex;
   padding: 12px 24px 0;
   position: absolute;
   bottom: 0;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   text-decoration: none;
   color: #b1b3b1;
-  margin-left: 78px;
+  margin-left: 87px;
   font-size: 18.72px;
 }
