@@ -6,6 +6,7 @@ const $messageFormButton = $messageForm.querySelector("button");
 const $locationButton = document.querySelector("#send-location");
 const $messages = document.querySelector("#messages");
 
+
 const messageTemplate = document.querySelector("#message-template").innerHTML;
 const locationTemplate = document.querySelector("#location-template").innerHTML;
 const sideBarTemplate = document.querySelector('#sidebar-template').innerHTML
@@ -111,4 +112,8 @@ socket.emit('join', { username, room }, (error) => {
     alert(error)
     location.href = '/'
   }
+})
+
+document.querySelector('#joinButton').addEventListener('click', () => {
+  user.room = 'Family'
 })

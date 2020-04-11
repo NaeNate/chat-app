@@ -3,12 +3,18 @@ const users = []
 const addUser = ({ id, username, room }) => {
     //Clean Data
     username = username.trim().toLowerCase()
-    room = room.trim().toLowerCase()
+    // room = room.trim().toLowerCase()
 
     //validate data
-    if (!username || !room) {
+    // if (!username || !room) {
+    //     return {
+    //         error: 'Username and room are required'
+    //     }
+    // }
+
+    if (!username) {
         return {
-            error: 'Username and room are required'
+            error: 'A username is required.'
         }
     }
 
