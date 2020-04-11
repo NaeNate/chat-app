@@ -145,4 +145,18 @@ button:disabled {
   position: absolute;
   bottom: 0;
   margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 18.72px;
+}
+.gitlink {
+  display: flex;
+  padding: 12px 24px 0;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #b1b3b1;
+  margin-left: 78px;
+  font-size: 18.72px;
 }
