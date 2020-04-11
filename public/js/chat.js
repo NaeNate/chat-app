@@ -8,24 +8,62 @@ const $messages = document.querySelector("#messages");
 
 const messageTemplate = document.querySelector("#message-template").innerHTML;
 const locationTemplate = document.querySelector("#location-template").innerHTML;
+const sideBarTemplate = document.querySelector('#sidebar-template').innerHTML
+
+const { username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true})
+
+const autoScroll = () => {
+  // new message
+  const $newMessage = $messages.lastElementChild
+
+  //height of new message
+  const $newMessageStyles = getComputedStyle($newMessage)
+  const newMessageMargin = parseInt($newMessageStyles.marginBottom)
+  const newMessegeHeight = $newMessage.offsetHeight + newMessageMargin
+  
+  //
+  const visibleHeight = $messages.offsetHeight
+
+  //hieght message container
+  const containerHeight = $messages.scrollHeight
+
+  //HOe far scrolled
+  const scrollOffset = $messages.scrollTop + visibleHeight
+
+  if (containerHeight - newMessegeHeight <= scrollOffset) {
+    $messages.scrollTop = $messages.scrollHeight
+  }
+}
 
 socket.on("message", (message) => {
   console.log(message);
   const html = Mustache.render(messageTemplate, {
+    username: message.username,
     message: message.text,
     createdAt: moment(message.createdAt).format("MMM D, h:mm A"),
   });
   $messages.insertAdjacentHTML("beforeend", html);
+  autoScroll()
 });
 
 socket.on("loacationMessage", (location) => {
   console.log(location);
   const html = Mustache.render(locationTemplate, {
-    location: location.text,
+    username: location.username,
+    location: location.url,
     createdAt: moment(location.createdAt).format("MMM D, h:mm A"),
   });
   $messages.insertAdjacentHTML("beforeend", html);
+  autoScroll()
 });
+
+socket.on('roomData', ({ room, users }) => {
+  const html = Mustache.render(sideBarTemplate, {
+    room,
+    users
+  })
+  document.querySelector('#sidebar').innerHTML = html
+})
 
 $messageForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -68,4 +106,9 @@ $locationButton.addEventListener("click", () => {
   });
 });
 
-//hello my comrades
+socket.emit('join', { username, room }, (error) => {
+  if (error) {
+    alert(error)
+    location.href = '/'
+  }
+})
